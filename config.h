@@ -14,6 +14,7 @@
 typedef struct CONFIG {
 	int FREQ_ACCURATE;
 	int SHOW_ADVANCED;
+	int AUTO_OC;
 } CONFIG;
 
 int loadConfig(CONFIG *config);
