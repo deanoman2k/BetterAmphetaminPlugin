@@ -24,7 +24,8 @@ The file content must be:
 freq_accurate=0
 show_advanced=0
 auto_oc=0
-auto_uc_lvl=0
+auto_uc=0
+auto_uc_ext=0
 ```
 
 `freq_accurate`: 1 to enable accurate frequence(5MHz per select)  
