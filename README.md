@@ -23,14 +23,21 @@ The file content must be:
 ```ini
 freq_accurate=0
 show_advanced=0
+auto_oc=0
+auto_uc_lvl=0
 ```
 
 `freq_accurate`: 1 to enable accurate frequence(5MHz per select)  
 `show_advanced`: 1 to enable advaned setting(currently has XBAR clock setting)
+`auto_oc`      : 1 to enable automatic overclocking on game start
+`auto_uc_lvl`  : set the level of the automatic underclock (or battery saver) Level 1: 111/111/111/111, Level 2: 41/41/41/41
 
 You can also download that `config.txt` from release page. You can also transfer it to PSV and use VitaShell to edit it.
 
 # Changelog
++ v3.3
+        + added automatic overclock to config.txt
+        + added automatic underclock to config.txt (battery saver)
 + v3.2
 	+ add GPU XBAR(Crossbar) frequency(need advanced setting)
 	+ add config for advanced setting and accurate frequency
