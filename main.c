@@ -79,6 +79,13 @@ int blit_thread(SceSize args, void *argp) {
 	
 	int menu_open = 0;
 	int menu_sel = 0;
+	
+	if (config.AUTO_OC) { // optional automatic overclock
+	scePowerSetArmClockFrequency(444)
+	scePowerSetBusClockFrequency(222)
+	scePowerSetGpuClockFrequency(222)
+	scePowerSetGpuXbarClockFrequency(166)
+	}
 
 	while (1) {
 		SceCtrlData pad;
