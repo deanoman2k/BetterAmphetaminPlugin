@@ -16,6 +16,7 @@ typedef struct CONFIG {
 	int SHOW_ADVANCED;
 	int AUTO_OC;
 	int AUTO_UC;
+	int AUTO_UC_EXT;
 } CONFIG;
 
 int loadConfig(CONFIG *config);
