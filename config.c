@@ -5,6 +5,7 @@ void defaultConfig(CONFIG *config) {
     config->SHOW_ADVANCED = 0;
     config->AUTO_OC = 0;
     config->AUTO_UC = 0;
+    config->AUTO_UC_EXT = 0;
 }
 
 int loadConfig(CONFIG *config) {
@@ -38,8 +39,12 @@ int loadConfig(CONFIG *config) {
             config->AUTO_OC = value;
             continue;
         }
-        if (strcmp(key, "auto_uc_lvl") == 0) {
+        if (strcmp(key, "auto_uc") == 0) {
             config->AUTO_UC = value;
+            continue;
+        }
+        if (strcmp(key, "auto_uc_ext") == 0) {
+            config->AUTO_UC_EXT = value;
             continue;
         }
     }
