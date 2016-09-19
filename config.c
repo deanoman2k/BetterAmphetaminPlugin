@@ -4,6 +4,7 @@ void defaultConfig(CONFIG *config) {
     config->FREQ_ACCURATE = 0;
     config->SHOW_ADVANCED = 0;
     config->AUTO_OC = 0;
+    config->AUTO_UC = 0;
 }
 
 int loadConfig(CONFIG *config) {
@@ -35,6 +36,10 @@ int loadConfig(CONFIG *config) {
         }
         if (strcmp(key, "auto_oc") == 0) {
             config->AUTO_OC = value;
+            continue;
+        }
+        if (strcmp(key, "auto_uc_lvl") == 0) {
+            config->AUTO_UC = value;
             continue;
         }
     }
