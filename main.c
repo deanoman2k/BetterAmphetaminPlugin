@@ -86,6 +86,20 @@ int blit_thread(SceSize args, void *argp) {
 	scePowerSetGpuClockFrequency(222)
 	scePowerSetGpuXbarClockFrequency(166)
 	}
+	
+        if (config.AUTO_UC) { // optional automatic underclock
+	scePowerSetArmClockFrequency(111)
+	scePowerSetBusClockFrequency(111)
+	scePowerSetGpuClockFrequency(111)
+	scePowerSetGpuXbarClockFrequency(111)
+	}
+	
+	if (config.AUTO_UC_EXT) { // optional automatic extreme underclock
+	scePowerSetArmClockFrequency(41)
+	scePowerSetBusClockFrequency(41)
+	scePowerSetGpuClockFrequency(41)
+	scePowerSetGpuXbarClockFrequency(41)
+	}
 
 	while (1) {
 		SceCtrlData pad;
