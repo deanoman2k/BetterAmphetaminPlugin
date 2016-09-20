@@ -188,7 +188,7 @@ int blit_thread(SceSize args, void *argp) {
 			blit_setup();
 
 			blit_set_color(WHITE, GREEN);
-			blit_stringf(LEFT_LABEL_X, 128, "Better Amphetamin 3.2");
+			blit_stringf(LEFT_LABEL_X, 128, "Better Amphetamin 3.3");
 
 			blit_set_color(WHITE, menu_sel == 0 ? GREEN : BLACK);
 			blit_stringf(LEFT_LABEL_X, 160, "CPU CLOCK  ");
