@@ -16,6 +16,12 @@ void setClockFrequency(int no, int freq) {
 	else if (no == 3)	scePowerSetGpuXbarClockFrequency(freq);
 }
 
+void setProfile(int profile[] ) {
+     scePowerSetArmClockFrequency(profile[0]);
+     scePowerSetBusClockFrequency(profile[1]);
+     scePowerSetGpuClockFrequency(profile[2]);
+}
+
 /** Battery **/
 const int getBatteryStatus() {
 	return scePowerIsBatteryCharging();
