@@ -81,24 +81,24 @@ int blit_thread(SceSize args, void *argp) {
 	int menu_sel = 0;
 	
 	if (config.AUTO_OC) { // optional automatic overclock
-	scePowerSetArmClockFrequency(444)
-	scePowerSetBusClockFrequency(222)
-	scePowerSetGpuClockFrequency(222)
-	scePowerSetGpuXbarClockFrequency(166)
+	scePowerSetArmClockFrequency(444);
+	scePowerSetBusClockFrequency(222);
+	scePowerSetGpuClockFrequency(222);
+	scePowerSetGpuXbarClockFrequency(166);
 	}
 	
         if (config.AUTO_UC) { // optional automatic underclock
-	scePowerSetArmClockFrequency(111)
-	scePowerSetBusClockFrequency(111)
-	scePowerSetGpuClockFrequency(111)
-	scePowerSetGpuXbarClockFrequency(111)
+	scePowerSetArmClockFrequency(111);
+	scePowerSetBusClockFrequency(111);
+	scePowerSetGpuClockFrequency(111);
+	scePowerSetGpuXbarClockFrequency(111);
 	}
 	
 	if (config.AUTO_UC_EXT) { // optional automatic extreme underclock
-	scePowerSetArmClockFrequency(41)
-	scePowerSetBusClockFrequency(41)
-	scePowerSetGpuClockFrequency(41)
-	scePowerSetGpuXbarClockFrequency(41)
+	scePowerSetArmClockFrequency(41);
+	scePowerSetBusClockFrequency(41);
+	scePowerSetGpuClockFrequency(41);
+	scePowerSetGpuXbarClockFrequency(41);
 	}
 
 	while (1) {
