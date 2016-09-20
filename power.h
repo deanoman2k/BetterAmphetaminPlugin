@@ -12,10 +12,12 @@ int scePowerGetBatterySOH();
 
 /** Processor Clock **/
 int scePowerGetGpuXbarClockFrequency();
-void scePowerSetGpuXbarClockFrequency(int freq);
+int scePowerSetGpuXbarClockFrequency(int freq);
 
 int getClockFrequency();
 void setClockFrequency();
+void setProfile();
+
 
 int getBatteryRemCapacity();
 int getBatteryCapacity();
