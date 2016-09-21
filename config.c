@@ -6,6 +6,7 @@ void defaultConfig(CONFIG *config) {
     config->AUTO_OC = 0;
     config->AUTO_UC = 0;
     config->AUTO_UC_EXT = 0;
+    config->LAST_PROFILE = 2;
 }
 
 int loadConfig(CONFIG *config) {
@@ -45,6 +46,10 @@ int loadConfig(CONFIG *config) {
         }
         if (strcmp(key, "auto_uc_ext") == 0) {
             config->AUTO_UC_EXT = value;
+            continue;
+        }
+        if (strcmp(key, "last_profile") == 0) {
+            config->LAST_PROFILE = value;
             continue;
         }
     }
