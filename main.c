@@ -216,7 +216,7 @@ int blit_thread(SceSize args, void *argp) {
 			blit_stringf(LEFT_LABEL_X, 128, "Better Amphetamin 3.2");
 
 
-			blit_set_color(WHITE, RED);
+			blit_set_color(WHITE, BLUE);
 			blit_stringf(LEFT_LABEL_X, 160, "PROFILE    ");
 
 			switch(current_profile) {
