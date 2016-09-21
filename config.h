@@ -17,7 +17,7 @@ typedef struct CONFIG {
 	int AUTO_OC;
 	int AUTO_UC;
 	int AUTO_UC_EXT;
-	int LAST_PROFILE;
+	int DEFAULT_PROFILE;
 } CONFIG;
 
 int loadConfig(CONFIG *config);
