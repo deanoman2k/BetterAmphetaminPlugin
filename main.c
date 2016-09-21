@@ -86,7 +86,10 @@ int blit_thread(SceSize args, void *argp) {
 	int menu_open = 0;
 	int menu_sel = 0;
 
-	int current_profile = config.DEFAULT_PROFILE; //TODO: Load from config.txt
+	int current_profile = 2;
+	if (config.DEFAULT_PROFILE <= 4) {
+		current_profile = config.DEFAULT_PROFILE;
+	}
 
 	if (config.AUTO_OC) { // optional automatic overclock
 	scePowerSetArmClockFrequency(444);
@@ -217,21 +220,25 @@ int blit_thread(SceSize args, void *argp) {
 			blit_stringf(LEFT_LABEL_X, 160, "PROFILE    ");
 
 			switch(current_profile) {
-            case 1: //max battery
-                blit_stringf(RIGHT_LABEL_X, 160, "Max Batt.");
-                setProfile(profile_max_battery);
-                break;
-            case 2: //default
-                blit_stringf(RIGHT_LABEL_X, 160, "Default  ");
-                setProfile(profile_default);
-                break;
-            case 3: //default
-                blit_stringf(RIGHT_LABEL_X, 160, "Max Perf.");
-                setProfile(profile_max_performance);
-                break;
-            case 4:
-                blit_stringf(RIGHT_LABEL_X, 160, "Custom   ");
-                break;
+            		case 1: //max battery
+                		blit_stringf(RIGHT_LABEL_X, 160, "Max Batt.");
+                		setProfile(profile_max_battery);
+                		break;
+            		case 2: //default
+                		blit_stringf(RIGHT_LABEL_X, 160, "Default  ");
+                		setProfile(profile_default);
+                		break;
+            		case 3: //default
+                		blit_stringf(RIGHT_LABEL_X, 160, "Max Perf.");
+                		setProfile(profile_max_performance);
+                		break;
+            		case 4:
+                		blit_stringf(RIGHT_LABEL_X, 160, "Custom   ");
+                		break;
+                	default:
+                		blit_stringf(RIGHT_LABEL_X, 160, "Default  ");
+                		setProfile(profile_default);
+                		break;
 			}
 
 			blit_set_color(WHITE, menu_sel == 0 ? GREEN : BLACK);
