@@ -38,7 +38,7 @@
 #define BLACK 0x00000000
 #define WHITE 0x00FFFFFF
 #define GREEN 0x0033CC33
-#define RED   0x00FF0000
+#define BLUE  0x00FF0000
 #define LONG_PRESS_TIME 2000000
 #define LEFT_LABEL_X 320
 #define RIGHT_LABEL_X 512
@@ -86,7 +86,7 @@ int blit_thread(SceSize args, void *argp) {
 	int menu_open = 0;
 	int menu_sel = 0;
 
-	int current_profile = 2; //TODO: Load from config.txt
+	int current_profile = config.DEFAULT_PROFILE; //TODO: Load from config.txt
 
 	if (config.AUTO_OC) { // optional automatic overclock
 	scePowerSetArmClockFrequency(444);
