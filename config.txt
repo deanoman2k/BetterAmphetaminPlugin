@@ -3,4 +3,4 @@ show_advanced=0
 auto_oc=0
 auto_uc=0
 auto_uc_ext=0
-last_prfile=2
+default_profile=2
