@@ -17,9 +17,10 @@ void setClockFrequency(int no, int freq) {
 }
 
 void setProfile(int profile[] ) {
-     scePowerSetArmClockFrequency(profile[0]);
-     scePowerSetBusClockFrequency(profile[1]);
-     scePowerSetGpuClockFrequency(profile[2]);
+    scePowerSetArmClockFrequency(profile[0]);
+    scePowerSetBusClockFrequency(profile[1]);
+    scePowerSetGpuClockFrequency(profile[2]);
+	scePowerSetGpuXbarClockFrequency(profile[3]);
 }
 
 /** Battery **/

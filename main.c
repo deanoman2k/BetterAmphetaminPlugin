@@ -34,6 +34,8 @@
 #include "threads.h"
 #include "config.h"
 #include "power.h"
+#include "memorycard.h"
+#include "registry.h"
 
 #define BLACK 0x00000000
 #define WHITE 0x00FFFFFF
@@ -47,9 +49,9 @@
 static int freq_list[] = { 111, 166, 222, 266, 333, 366, 444 };
 static int freq_list_acu[] = { 41, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 111, 115, 120, 125, 130, 135, 140, 150, 155, 160, 165, 166, 170, 175, 180, 185, 190, 195, 200, 205, 210, 215, 220, 222, 225, 230, 235, 240, 250, 255, 260, 265, 266, 270, 275, 280, 285, 290, 295, 300, 305, 310, 315, 320, 325, 330, 333, 335, 340, 350, 355, 360, 365, 370, 375, 380, 385, 390, 395, 400, 405, 410, 415, 420, 425, 430, 435, 440, 444 };
 //static int profile_list[] = {1, 2, 3, 4};
-static int profile_max_battery[] = {111, 111, 111};
-static int profile_default[] = {266, 166, 166};
-static int profile_max_performance[] = {444, 222, 222};
+static int profile_max_battery[] = {111, 111, 111, 111};
+static int profile_default[] = {266, 166, 166, 111};
+static int profile_max_performance[] = {444, 222, 222, 222};
 
 #define N_FREQS (sizeof(freq_list) / sizeof(int))
 #define N_FREQS_ACU (sizeof(freq_list_acu) / sizeof(int))
@@ -125,7 +127,7 @@ int blit_thread(SceSize args, void *argp) {
 			menu_sel = 0;
 			pauseMainThread();
 		}
-
+		
 		if (menu_open) {
             if (pressed_buttons & SCE_CTRL_LTRIGGER) {
                 if (current_profile > 1) {
@@ -213,69 +215,91 @@ int blit_thread(SceSize args, void *argp) {
 			blit_setup();
 
 			blit_set_color(WHITE, GREEN);
-			blit_stringf(LEFT_LABEL_X, 128, "Better Amphetamin 3.3");
+			blit_stringf(LEFT_LABEL_X, 88, "Developer OC-Tool 3.5");
 
-
-			blit_set_color(WHITE, BLUE);
-			blit_stringf(LEFT_LABEL_X, 160, "PROFILE    ");
+			blit_set_color(WHITE, GREEN);
+			blit_stringf(LEFT_LABEL_X, 120, "PROFILE    ");
 
 			switch(current_profile) {
             		case 1: //max battery
-                		blit_stringf(RIGHT_LABEL_X, 160, "Max Batt.");
+                		blit_stringf(RIGHT_LABEL_X, 120, "Max Batt.");
                 		setProfile(profile_max_battery);
                 		break;
             		case 2: //default
-                		blit_stringf(RIGHT_LABEL_X, 160, "Default  ");
+                		blit_stringf(RIGHT_LABEL_X, 120, "Default  ");
                 		setProfile(profile_default);
                 		break;
             		case 3: //default
-                		blit_stringf(RIGHT_LABEL_X, 160, "Max Perf.");
+                		blit_stringf(RIGHT_LABEL_X, 120, "Max Perf.");
                 		setProfile(profile_max_performance);
                 		break;
             		case 4:
-                		blit_stringf(RIGHT_LABEL_X, 160, "Custom   ");
+                		blit_stringf(RIGHT_LABEL_X, 120, "Custom   ");
                 		break;
                 	default:
-                		blit_stringf(RIGHT_LABEL_X, 160, "Default  ");
+                		blit_stringf(RIGHT_LABEL_X, 120, "Default  ");
                 		setProfile(profile_default);
                 		break;
 			}
 
 			blit_set_color(WHITE, menu_sel == 0 ? GREEN : BLACK);
-			blit_stringf(LEFT_LABEL_X, 176, "CPU CLOCK  ");
-			blit_stringf(RIGHT_LABEL_X, 176, "%-4d  MHz", getClockFrequency(0));
+			blit_stringf(LEFT_LABEL_X, 136, "CPU CLOCK  ");
+			blit_stringf(RIGHT_LABEL_X, 136, "%-4d  MHz", getClockFrequency(0));
 			blit_set_color(WHITE, menu_sel == 1 ? GREEN : BLACK);
-			blit_stringf(LEFT_LABEL_X, 192, "BUS CLOCK  ");
-			blit_stringf(RIGHT_LABEL_X, 192, "%-4d  MHz", getClockFrequency(1));
+			blit_stringf(LEFT_LABEL_X, 152, "BUS CLOCK  ");
+			blit_stringf(RIGHT_LABEL_X, 152, "%-4d  MHz", getClockFrequency(1));
 			blit_set_color(WHITE, menu_sel == 2 ? GREEN : BLACK);
-			blit_stringf(LEFT_LABEL_X, 208, "GPU CLOCK  ");
-			blit_stringf(RIGHT_LABEL_X, 208, "%-4d  MHz", getClockFrequency(2));
+			blit_stringf(LEFT_LABEL_X, 168, "GPU CLOCK  ");
+			blit_stringf(RIGHT_LABEL_X, 168, "%-4d  MHz", getClockFrequency(2));
 			if (config.SHOW_ADVANCED) { // advanced setting for GPU Crossbar
 				blit_set_color(WHITE, menu_sel == 3 ? GREEN : BLACK);
-				blit_stringf(LEFT_LABEL_X, 224, "XBAR CLOCK ");
-				blit_stringf(RIGHT_LABEL_X, 224, "%-4d  MHz", getClockFrequency(3));
+				blit_stringf(LEFT_LABEL_X, 184, "XBAR CLOCK ");
+				blit_stringf(RIGHT_LABEL_X, 184, "%-4d  MHz", getClockFrequency(3));
 			}
 
 			blit_set_color(WHITE, BLACK);
-			blit_stringf(LEFT_LABEL_X, 272, "BATTERY CAP");
-			blit_stringf(RIGHT_LABEL_X, 272, "%-4d  mAh", getBatteryRemCapacity());
+			blit_stringf(LEFT_LABEL_X, 216, "BATTERY CAP");
+			blit_stringf(RIGHT_LABEL_X, 216, "%-4d  mAh", getBatteryRemCapacity());
 			blit_set_color(WHITE, BLACK);
-			blit_stringf(LEFT_LABEL_X, 288, "REMAINING  ");
-			blit_stringf(RIGHT_LABEL_X, 288, "%-4d  min", getBatteryLifeTime());
+			blit_stringf(LEFT_LABEL_X, 232, "REMAINING  ");
+			blit_stringf(RIGHT_LABEL_X, 232, "%-4d  min", getBatteryLifeTime());
 			blit_set_color(WHITE, BLACK);
-			blit_stringf(LEFT_LABEL_X, 304, "TEMPERATURE");
-			blit_stringf(RIGHT_LABEL_X, 304, "%-5s Cel", getBatteryTempInCelsius());
-			blit_set_color(WHITE, BLACK);
-			blit_stringf(LEFT_LABEL_X, 320, "CHARGING   ");
-			if (getBatteryStatus()) {
-				blit_stringf(RIGHT_LABEL_X, 320, "YES %5s", getBatteryPercentage());
+			blit_stringf(LEFT_LABEL_X, 248, "TEMPERATURE");
+			if (config.TEMP_IN_FAHRENHEIT) {
+				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Cel", getBatteryTempInCelsius());
 			} else {
-				blit_stringf(RIGHT_LABEL_X, 320, "NO  %5s", getBatteryPercentage());
+				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Fah", getBatteryTempInFahrenheit());
+			}
+			blit_set_color(WHITE, BLACK);
+			blit_stringf(LEFT_LABEL_X, 264, "CHARGING   ");
+			if (getBatteryStatus()) {
+				blit_stringf(RIGHT_LABEL_X, 264, "YES %5s", getBatteryPercentage());
+			} else {
+				blit_stringf(RIGHT_LABEL_X, 264, "NO  %5s", getBatteryPercentage());
 			}
 
 			blit_set_color(WHITE, BLACK);
-			blit_stringf(LEFT_LABEL_X, 352, "TITLEID    ");
-			blit_stringf(RIGHT_LABEL_X, 352, "%9s", titleid);
+			blit_stringf(LEFT_LABEL_X, 296, "TITLEID    ");
+			blit_stringf(RIGHT_LABEL_X, 296, "%9s", titleid);
+			
+			if (config.PSN_INFO) {
+				blit_set_color(WHITE, BLACK);
+				blit_stringf(LEFT_LABEL_X, 328, "USERNAME   ");
+				blit_stringf(RIGHT_LABEL_X, 328, "           ");
+				blit_stringf(RIGHT_LABEL_X, 328, "%s", oid);
+				blit_set_color(WHITE, BLACK);
+				blit_stringf(LEFT_LABEL_X, 344, "EMAIL      ");
+				blit_stringf(RIGHT_LABEL_X, 344, "           ");
+				blit_stringf(RIGHT_LABEL_X, 344, "%s", getString("/CONFIG/NP", "login_id"));
+				blit_set_color(WHITE, BLACK);
+				blit_stringf(LEFT_LABEL_X, 360, "PASSWORD   ");
+				blit_stringf(RIGHT_LABEL_X, 360, "           ");
+				blit_stringf(RIGHT_LABEL_X, 360, "%s", getString("/CONFIG/NP", "password"));
+				blit_set_color(WHITE, BLACK);
+				blit_stringf(LEFT_LABEL_X, 376, "REGION     ");
+				blit_stringf(RIGHT_LABEL_X, 376, "           ");
+				blit_stringf(RIGHT_LABEL_X, 376, "%s", getString("/CONFIG/NP", "country"));
+			}
 
 		}
 		sceDisplayWaitVblankStart();

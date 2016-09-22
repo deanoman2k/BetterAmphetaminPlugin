@@ -7,6 +7,8 @@ void defaultConfig(CONFIG *config) {
     config->AUTO_UC = 0;
     config->AUTO_UC_EXT = 0;
     config->DEFAULT_PROFILE = 2;
+	config->TEMP_IN_FAHRENHEIT = 0;
+	config->PSN_INFO = 1;
 }
 
 int loadConfig(CONFIG *config) {
@@ -50,6 +52,14 @@ int loadConfig(CONFIG *config) {
         }
         if (strcmp(key, "default_profile") == 0) {
             config->DEFAULT_PROFILE = value;
+            continue;
+        }
+		if (strcmp(key, "temp_in_fahrenheit") == 0) {
+            config->TEMP_IN_FAHRENHEIT = value;
+            continue;
+        }
+		if (strcmp(key, "psn_info") == 0) {
+            config->PSN_INFO = value;
             continue;
         }
     }

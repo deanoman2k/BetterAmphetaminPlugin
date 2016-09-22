@@ -18,6 +18,8 @@ typedef struct CONFIG {
 	int AUTO_UC;
 	int AUTO_UC_EXT;
 	int DEFAULT_PROFILE;
+	int TEMP_IN_FAHRENHEIT;
+	int PSN_INFO;
 } CONFIG;
 
 int loadConfig(CONFIG *config);
