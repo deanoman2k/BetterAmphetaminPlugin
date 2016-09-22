@@ -215,7 +215,7 @@ int blit_thread(SceSize args, void *argp) {
 			blit_setup();
 
 			blit_set_color(WHITE, GREEN);
-			blit_stringf(LEFT_LABEL_X, 88, "Developer OC-Tool 3.5");
+			blit_stringf(LEFT_LABEL_X, 88, "Better Amphetamin 3.5");
 
 			blit_set_color(WHITE, GREEN);
 			blit_stringf(LEFT_LABEL_X, 120, "PROFILE    ");
