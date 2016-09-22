@@ -26,13 +26,15 @@ show_advanced=0
 auto_oc=0
 auto_uc=0
 auto_uc_ext=0
+default_profile=2
 ```
 
-`freq_accurate`: 1 to enable accurate frequence(5MHz per select)  
-`show_advanced`: 1 to enable advaned setting(currently has XBAR clock setting)
-`auto_oc`      : 1 to enable automatic overclocking on game start
-`auto_uc`      : 1 to enable automatic underclock (or battery saver) (111/111/111/111)
-`auto_uc_ext`  : 1 to enable automatic extreme underlock (41/41/41/41)
+`freq_accurate`  : 1 to enable accurate frequence(5MHz per select)  
+`show_advanced`  : 1 to enable advaned setting(currently has XBAR clock setting)
+`auto_oc`        : 1 to enable automatic overclocking on game start
+`auto_uc`        : 1 to enable automatic underclock (or battery saver) (111/111/111/111)
+`auto_uc_ext`    : 1 to enable automatic extreme underlock (41/41/41/41)
+`default_profile`: 1 to max battery, 2 to default, 3 to max performance
 
 You can also download that `config.txt` from release page. You can also transfer it to PSV and use VitaShell to edit it.
 
