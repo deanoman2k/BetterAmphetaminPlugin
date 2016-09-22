@@ -41,13 +41,13 @@ You can also download that `config.txt` from release page. You can also transfer
 
 # Changelog
 + v3.5
-+ added PSN info
-+ added ability to display Temp in Fahrenheit
-+ added OC Profiles (USE L+R or config.txt to change)
-+ auto_oc/auto_uc/auto_uc_ext have been deprecated, but are still in the code for dev reasons
+	+ added PSN info
+	+ added ability to display Temp in Fahrenheit
+	+ added OC Profiles (USE L+R or config.txt to change)
+	+ auto_oc/auto_uc/auto_uc_ext have been deprecated, but are still in the code for dev reasons
 + v3.3
-        + added automatic overclock to config.txt
-        + added automatic underclock to config.txt (battery saver)
+	+ added automatic overclock to config.txt
+	+ added automatic underclock to config.txt (battery saver)
 + v3.2
 	+ add GPU XBAR(Crossbar) frequency(need advanced setting)
 	+ add config for advanced setting and accurate frequency
