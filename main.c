@@ -266,9 +266,9 @@ int blit_thread(SceSize args, void *argp) {
 			blit_set_color(WHITE, BLACK);
 			blit_stringf(LEFT_LABEL_X, 248, "TEMPERATURE");
 			if (config.TEMP_IN_FAHRENHEIT) {
-				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Cel", getBatteryTempInCelsius());
-			} else {
 				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Fah", getBatteryTempInFahrenheit());
+			} else {
+				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Cel", getBatteryTempInCelsius());
 			}
 			blit_set_color(WHITE, BLACK);
 			blit_stringf(LEFT_LABEL_X, 264, "CHARGING   ");
