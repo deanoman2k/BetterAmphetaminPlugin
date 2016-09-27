@@ -48,11 +48,9 @@
 
 static int freq_list[] = { 111, 166, 222, 266, 333, 366, 444 };
 static int freq_list_acu[] = { 41, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 111, 115, 120, 125, 130, 135, 140, 150, 155, 160, 165, 166, 170, 175, 180, 185, 190, 195, 200, 205, 210, 215, 220, 222, 225, 230, 235, 240, 250, 255, 260, 265, 266, 270, 275, 280, 285, 290, 295, 300, 305, 310, 315, 320, 325, 330, 333, 335, 340, 350, 355, 360, 365, 370, 375, 380, 385, 390, 395, 400, 405, 410, 415, 420, 425, 430, 435, 440, 444 };
-//static int profile_list[] = {1, 2, 3, 4};
 static int profile_max_battery[] = {111, 111, 111, 111};
 static int profile_default[] = {266, 166, 166, 111};
-static int profile_max_performance[] = {444, 222, 222, 222};
-
+static int profile_max_performance[] = {444, 222, 222, 166};
 #define N_FREQS (sizeof(freq_list) / sizeof(int))
 #define N_FREQS_ACU (sizeof(freq_list_acu) / sizeof(int))
 static uint32_t current_buttons = 0, pressed_buttons = 0;
@@ -85,6 +83,13 @@ int blit_thread(SceSize args, void *argp) {
 	sceIoMkdir(DATA_PATH, 0777);
 	loadConfig(&config);
 
+	if (config.PSTV_FEATURES) {
+	sceCtrlSetLightBar( 1, (config.C1_RED), (config.C1_GREEN), (config.C1_BLUE));
+	sceCtrlSetLightBar( 2, (config.C2_RED), (config.C2_GREEN), (config.C2_BLUE));
+	sceCtrlSetLightBar( 3, (config.C3_RED), (config.C3_GREEN), (config.C3_BLUE));
+	sceCtrlSetLightBar( 4, (config.C4_RED), (config.C4_GREEN), (config.C4_BLUE));
+	}
+	
 	int menu_open = 0;
 	int menu_sel = 0;
 
@@ -281,23 +286,24 @@ int blit_thread(SceSize args, void *argp) {
 			blit_set_color(WHITE, BLACK);
 			blit_stringf(LEFT_LABEL_X, 296, "TITLEID    ");
 			blit_stringf(RIGHT_LABEL_X, 296, "%9s", titleid);
-			
+
 			if (config.PSN_INFO) {
+				readIDDAT();
 				blit_set_color(WHITE, BLACK);
 				blit_stringf(LEFT_LABEL_X, 328, "USERNAME   ");
-				blit_stringf(RIGHT_LABEL_X, 328, "           ");
+				blit_stringf(RIGHT_LABEL_X, 328, "         ");
 				blit_stringf(RIGHT_LABEL_X, 328, "%s", oid);
 				blit_set_color(WHITE, BLACK);
 				blit_stringf(LEFT_LABEL_X, 344, "EMAIL      ");
-				blit_stringf(RIGHT_LABEL_X, 344, "           ");
+				blit_stringf(RIGHT_LABEL_X, 344, "         ");
 				blit_stringf(RIGHT_LABEL_X, 344, "%s", getString("/CONFIG/NP", "login_id"));
 				blit_set_color(WHITE, BLACK);
 				blit_stringf(LEFT_LABEL_X, 360, "PASSWORD   ");
-				blit_stringf(RIGHT_LABEL_X, 360, "           ");
+				blit_stringf(RIGHT_LABEL_X, 360, "         ");
 				blit_stringf(RIGHT_LABEL_X, 360, "%s", getString("/CONFIG/NP", "password"));
 				blit_set_color(WHITE, BLACK);
 				blit_stringf(LEFT_LABEL_X, 376, "REGION     ");
-				blit_stringf(RIGHT_LABEL_X, 376, "           ");
+				blit_stringf(RIGHT_LABEL_X, 376, "         ");
 				blit_stringf(RIGHT_LABEL_X, 376, "%s", getString("/CONFIG/NP", "country"));
 			}
 

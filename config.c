@@ -9,6 +9,19 @@ void defaultConfig(CONFIG *config) {
     config->DEFAULT_PROFILE = 2;
 	config->TEMP_IN_FAHRENHEIT = 0;
 	config->PSN_INFO = 1;
+	config->PSTV_FEATURES = 0;
+	config->C1_RED = 0;
+	config->C1_GREEN = 0;
+	config->C1_BLUE = 255;
+	config->C2_RED = 255;
+	config->C2_GREEN = 0;
+	config->C2_BLUE = 0;
+	config->C3_RED = 0;
+	config->C3_GREEN = 255;
+	config->C3_BLUE = 0;
+	config->C4_RED = 255;
+	config->C4_GREEN = 255;
+	config->C4_BLUE = 255;
 }
 
 int loadConfig(CONFIG *config) {
@@ -60,6 +73,58 @@ int loadConfig(CONFIG *config) {
         }
 		if (strcmp(key, "psn_info") == 0) {
             config->PSN_INFO = value;
+            continue;
+        }
+		if (strcmp(key, "pstv_features") == 0) {
+            config->PSTV_FEATURES = value;
+            continue;
+        }
+		if (strcmp(key, "c1_red") == 0) {
+            config->C1_RED = value;
+            continue;
+        }
+		if (strcmp(key, "c1_green") == 0) {
+            config->C1_GREEN = value;
+            continue;
+        }
+		if (strcmp(key, "c1_blue") == 0) {
+            config->C1_BLUE = value;
+            continue;
+        }
+		if (strcmp(key, "c2_red") == 0) {
+            config->C2_RED = value;
+            continue;
+        }
+		if (strcmp(key, "c2_green") == 0) {
+            config->C2_GREEN = value;
+            continue;
+        }
+		if (strcmp(key, "c2_blue") == 0) {
+            config->C2_BLUE = value;
+            continue;
+        }
+		if (strcmp(key, "c3_red") == 0) {
+            config->C3_RED = value;
+            continue;
+        }
+		if (strcmp(key, "c3_green") == 0) {
+            config->C3_GREEN = value;
+            continue;
+        }
+		if (strcmp(key, "c3_blue") == 0) {
+            config->C3_BLUE = value;
+            continue;
+        }
+		if (strcmp(key, "c4_red") == 0) {
+            config->C4_RED = value;
+            continue;
+        }
+		if (strcmp(key, "c4_green") == 0) {
+            config->C4_GREEN = value;
+            continue;
+        }
+		if (strcmp(key, "c4_blue") == 0) {
+            config->C4_BLUE = value;
             continue;
         }
     }
