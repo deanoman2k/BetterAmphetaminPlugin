@@ -29,6 +29,10 @@ auto_uc_ext=0 //deprecated
 default_profile=2
 temp_in_fahrenheit=0
 psn_info=1
+pstv_features=0
+c*_red=0
+c*_green=0
+c*_blue=255
 ```
 
 `freq_accurate`     : 1 to enable accurate frequence(5MHz per select)  
@@ -36,15 +40,21 @@ psn_info=1
 `default_profile`   : 1 to max battery, 2 to default, 3 to max performance
 `temp_in_fahrenheit`: 1 to display battery temperature in Fahrenheit 
 `psn_info`          : 0 to disable PSN info
+`pstv_features`     : 1 to enable PS-TV Features (Controller color)
+`c*_red`            : Set the Red RGB of Controller X to 0-255 
+`c*_green`          : Set the Green RGB of Controller X to 0-255
+`c*_blue`           : Set the Blue RGB of Controller X to 0-255
 
 You can also download that `config.txt` from release page. You can also transfer it to PSV and use VitaShell to edit it.
 
 # Changelog
-+ v3.5
-	+ added PSN info
++ v3.5-beta
+	+ added PSN info (WIP)
 	+ added ability to display Temp in Fahrenheit
 	+ added OC Profiles (USE L+R or config.txt to change)
 	+ auto_oc/auto_uc/auto_uc_ext have been deprecated, but are still in the code for dev reasons
+	+ added main switch for PS-TV Features (pstv_features in config)
+	+ added custom Controller color (FULL RGB)
 + v3.3
 	+ added automatic overclock to config.txt
 	+ added automatic underclock to config.txt (battery saver)
