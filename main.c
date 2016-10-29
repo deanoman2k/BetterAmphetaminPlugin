@@ -79,18 +79,6 @@ int blit_thread(SceSize args, void *argp) {
 	sceIoMkdir(DATA_PATH, 0777);
 	loadConfig(&config);
 	
-	if ( !vshSblAimgrIsDolce() ) {
-	blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
-	blit_stringf(0, 0, "Vita Mode");
-	} else {
-	blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
-	blit_stringf(0, 0, "TV Mode");
-	sceCtrlSetLightBar( 1, (config.C1_RED), (config.C1_GREEN), (config.C1_BLUE));
-	sceCtrlSetLightBar( 2, (config.C2_RED), (config.C2_GREEN), (config.C2_BLUE));
-	sceCtrlSetLightBar( 3, (config.C3_RED), (config.C3_GREEN), (config.C3_BLUE));
-	sceCtrlSetLightBar( 4, (config.C4_RED), (config.C4_GREEN), (config.C4_BLUE));
-	}
-	
 	int menu_open = 0;
 	int menu_sel = 0;
 
@@ -199,10 +187,24 @@ int blit_thread(SceSize args, void *argp) {
 
 			blit_setup();
 
-			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_TITLE));
+				if ( !vshSblAimgrIsDolce() ) {
+	blit_set_color(0x00FFFFFF, 0x00000000);
+	blit_stringf(0, 0, "TV Mode");
+	sceCtrlSetLightBar( 1, (config.C1_RED), (config.C1_GREEN), (config.C1_BLUE));
+	sceCtrlSetLightBar( 2, (config.C2_RED), (config.C2_GREEN), (config.C2_BLUE));
+	sceCtrlSetLightBar( 3, (config.C3_RED), (config.C3_GREEN), (config.C3_BLUE));
+	sceCtrlSetLightBar( 4, (config.C4_RED), (config.C4_GREEN), (config.C4_BLUE));
+	setProfile(profile_max_performance);
+	} else {
+	blit_set_color(0x00FFFFFF, 0x00000000);
+	blit_stringf(0, 0, "Vita Mode");
+	}
+	
+			
+			blit_set_color(0x00FFFFFF, 0x0033CC33);
 			blit_stringf(LEFT_LABEL_X, 88, "Better Amphetamin 3.5");
 
-			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_SELECTED));
+			blit_set_color(0x00FFFFFF, 0x0033CC33);
 			blit_stringf(LEFT_LABEL_X, 120, "PROFILE    ");
 
 			switch(current_profile) {
@@ -227,35 +229,35 @@ int blit_thread(SceSize args, void *argp) {
                 		break;
 			}
 
-			blit_set_color((config.THEME_FONTCOLOR), menu_sel == 0 ? (config.THEME_SELECTED) : (config.THEME_BACKGROUND));
+			blit_set_color(0x00FFFFFF, menu_sel == 0 ? 0x0033CC33 : 0x00000000);
 			blit_stringf(LEFT_LABEL_X, 136, "CPU CLOCK  ");
 			blit_stringf(RIGHT_LABEL_X, 136, "%-4d  MHz", getClockFrequency(0));
-			blit_set_color((config.THEME_FONTCOLOR), menu_sel == 1 ? (config.THEME_SELECTED) : (config.THEME_BACKGROUND));
+			blit_set_color(0x00FFFFFF, menu_sel == 1 ? 0x0033CC33 : 0x00000000);
 			blit_stringf(LEFT_LABEL_X, 152, "BUS CLOCK  ");
 			blit_stringf(RIGHT_LABEL_X, 152, "%-4d  MHz", getClockFrequency(1));
-			blit_set_color((config.THEME_FONTCOLOR), menu_sel == 2 ? (config.THEME_SELECTED) : (config.THEME_BACKGROUND));
+			blit_set_color(0x00FFFFFF, menu_sel == 2 ? 0x0033CC33 : 0x00000000);
 			blit_stringf(LEFT_LABEL_X, 168, "GPU CLOCK  ");
 			blit_stringf(RIGHT_LABEL_X, 168, "%-4d  MHz", getClockFrequency(2));
 			if (config.SHOW_ADVANCED) { // advanced setting for GPU Crossbar
-				blit_set_color((config.THEME_FONTCOLOR), menu_sel == 3 ? (config.THEME_SELECTED) : (config.THEME_BACKGROUND));
+				blit_set_color(0x00FFFFFF, menu_sel == 3 ? 0x0033CC33 : 0x00000000);
 				blit_stringf(LEFT_LABEL_X, 184, "XBAR CLOCK ");
 				blit_stringf(RIGHT_LABEL_X, 184, "%-4d  MHz", getClockFrequency(3));
 			}
 
-			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+			blit_set_color(0x00FFFFFF, 0x00000000);
 			blit_stringf(LEFT_LABEL_X, 216, "BATTERY CAP");
 			blit_stringf(RIGHT_LABEL_X, 216, "%-4d  mAh", getBatteryRemCapacity());
-			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+			blit_set_color(0x00FFFFFF, 0x00000000);
 			blit_stringf(LEFT_LABEL_X, 232, "REMAINING  ");
 			blit_stringf(RIGHT_LABEL_X, 232, "%-4d  min", getBatteryLifeTime());
-			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+			blit_set_color(0x00FFFFFF, 0x00000000);
 			blit_stringf(LEFT_LABEL_X, 248, "TEMPERATURE");
 			if (config.TEMP_IN_FAHRENHEIT) {
 				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Fah", getBatteryTempInFahrenheit());
 			} else {
 				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Cel", getBatteryTempInCelsius());
 			}
-			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+			blit_set_color(0x00FFFFFF, 0x00000000);
 			blit_stringf(LEFT_LABEL_X, 264, "CHARGING   ");
 			if (getBatteryStatus()) {
 				blit_stringf(RIGHT_LABEL_X, 264, "YES %5s", getBatteryPercentage());
@@ -263,25 +265,25 @@ int blit_thread(SceSize args, void *argp) {
 				blit_stringf(RIGHT_LABEL_X, 264, "NO  %5s", getBatteryPercentage());
 			}
 
-			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+			blit_set_color(0x00FFFFFF, 0x00000000);
 			blit_stringf(LEFT_LABEL_X, 296, "TITLEID    ");
 			blit_stringf(RIGHT_LABEL_X, 296, "%9s", titleid);
 
 			if (config.PSN_INFO) {
 				readIDDAT();
-				blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+				blit_set_color(0x00FFFFFF, 0x00000000);
 				blit_stringf(LEFT_LABEL_X, 328, "USERNAME   ");
 				blit_stringf(RIGHT_LABEL_X, 328, "         ");
 				blit_stringf(RIGHT_LABEL_X, 328, "%s", oid);
-				blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+				blit_set_color(0x00FFFFFF, 0x00000000);
 				blit_stringf(LEFT_LABEL_X, 344, "EMAIL      ");
 				blit_stringf(RIGHT_LABEL_X, 344, "         ");
 				blit_stringf(RIGHT_LABEL_X, 344, "%s", getString("/CONFIG/NP", "login_id"));
-				blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+				blit_set_color(0x00FFFFFF, 0x00000000);
 				blit_stringf(LEFT_LABEL_X, 360, "PASSWORD   ");
 				blit_stringf(RIGHT_LABEL_X, 360, "         ");
 				blit_stringf(RIGHT_LABEL_X, 360, "%s", getString("/CONFIG/NP", "password"));
-				blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+				blit_set_color(0x00FFFFFF, 0x00000000);
 				blit_stringf(LEFT_LABEL_X, 376, "REGION     ");
 				blit_stringf(RIGHT_LABEL_X, 376, "         ");
 				blit_stringf(RIGHT_LABEL_X, 376, "%s", getString("/CONFIG/NP", "country"));

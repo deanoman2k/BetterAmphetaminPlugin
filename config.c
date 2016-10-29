@@ -26,7 +26,7 @@ void defaultConfig(CONFIG *config) {
 
 int loadConfig(CONFIG *config) {
 	defaultConfig(config);
-    int fd = sceIoOpen(CONFIG_PATH, SCE_O_RDONLY, 0777);
+    int fd = sceIoOpen("ux0:/plugins/amphetamin_config.txt", SCE_O_RDONLY, 0777);
 
     char chunk[1025];
     int chunk_size = 0;
