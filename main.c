@@ -37,10 +37,6 @@
 #include "memorycard.h"
 #include "registry.h"
 
-#define BLACK 0x00000000
-#define WHITE 0x00FFFFFF
-#define GREEN 0x0033CC33
-#define BLUE  0x00FF0000
 #define LONG_PRESS_TIME 2000000
 #define LEFT_LABEL_X 320
 #define RIGHT_LABEL_X 512
@@ -82,8 +78,13 @@ int blit_thread(SceSize args, void *argp) {
 	sceAppMgrAppParamGetString(0, 12, titleid , 256);
 	sceIoMkdir(DATA_PATH, 0777);
 	loadConfig(&config);
-
-	if (config.PSTV_FEATURES) {
+	
+	if ( !vshSblAimgrIsDolce() ) {
+	blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+	blit_stringf(0, 0, "Vita Mode");
+	} else {
+	blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
+	blit_stringf(0, 0, "TV Mode");
 	sceCtrlSetLightBar( 1, (config.C1_RED), (config.C1_GREEN), (config.C1_BLUE));
 	sceCtrlSetLightBar( 2, (config.C2_RED), (config.C2_GREEN), (config.C2_BLUE));
 	sceCtrlSetLightBar( 3, (config.C3_RED), (config.C3_GREEN), (config.C3_BLUE));
@@ -96,27 +97,6 @@ int blit_thread(SceSize args, void *argp) {
 	int current_profile = 2;
 	if (config.DEFAULT_PROFILE <= 4) {
 		current_profile = config.DEFAULT_PROFILE;
-	}
-
-	if (config.AUTO_OC) { // optional automatic overclock
-	scePowerSetArmClockFrequency(444);
-	scePowerSetBusClockFrequency(222);
-	scePowerSetGpuClockFrequency(222);
-	scePowerSetGpuXbarClockFrequency(166);
-	}
-
-        if (config.AUTO_UC) { // optional automatic underclock
-	scePowerSetArmClockFrequency(111);
-	scePowerSetBusClockFrequency(111);
-	scePowerSetGpuClockFrequency(111);
-	scePowerSetGpuXbarClockFrequency(111);
-	}
-
-	if (config.AUTO_UC_EXT) { // optional automatic extreme underclock
-	scePowerSetArmClockFrequency(41);
-	scePowerSetBusClockFrequency(41);
-	scePowerSetGpuClockFrequency(41);
-	scePowerSetGpuXbarClockFrequency(41);
 	}
 
 	while (1) {
@@ -219,10 +199,10 @@ int blit_thread(SceSize args, void *argp) {
 
 			blit_setup();
 
-			blit_set_color(WHITE, GREEN);
+			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_TITLE));
 			blit_stringf(LEFT_LABEL_X, 88, "Better Amphetamin 3.5");
 
-			blit_set_color(WHITE, GREEN);
+			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_SELECTED));
 			blit_stringf(LEFT_LABEL_X, 120, "PROFILE    ");
 
 			switch(current_profile) {
@@ -247,35 +227,35 @@ int blit_thread(SceSize args, void *argp) {
                 		break;
 			}
 
-			blit_set_color(WHITE, menu_sel == 0 ? GREEN : BLACK);
+			blit_set_color((config.THEME_FONTCOLOR), menu_sel == 0 ? (config.THEME_SELECTED) : (config.THEME_BACKGROUND));
 			blit_stringf(LEFT_LABEL_X, 136, "CPU CLOCK  ");
 			blit_stringf(RIGHT_LABEL_X, 136, "%-4d  MHz", getClockFrequency(0));
-			blit_set_color(WHITE, menu_sel == 1 ? GREEN : BLACK);
+			blit_set_color((config.THEME_FONTCOLOR), menu_sel == 1 ? (config.THEME_SELECTED) : (config.THEME_BACKGROUND));
 			blit_stringf(LEFT_LABEL_X, 152, "BUS CLOCK  ");
 			blit_stringf(RIGHT_LABEL_X, 152, "%-4d  MHz", getClockFrequency(1));
-			blit_set_color(WHITE, menu_sel == 2 ? GREEN : BLACK);
+			blit_set_color((config.THEME_FONTCOLOR), menu_sel == 2 ? (config.THEME_SELECTED) : (config.THEME_BACKGROUND));
 			blit_stringf(LEFT_LABEL_X, 168, "GPU CLOCK  ");
 			blit_stringf(RIGHT_LABEL_X, 168, "%-4d  MHz", getClockFrequency(2));
 			if (config.SHOW_ADVANCED) { // advanced setting for GPU Crossbar
-				blit_set_color(WHITE, menu_sel == 3 ? GREEN : BLACK);
+				blit_set_color((config.THEME_FONTCOLOR), menu_sel == 3 ? (config.THEME_SELECTED) : (config.THEME_BACKGROUND));
 				blit_stringf(LEFT_LABEL_X, 184, "XBAR CLOCK ");
 				blit_stringf(RIGHT_LABEL_X, 184, "%-4d  MHz", getClockFrequency(3));
 			}
 
-			blit_set_color(WHITE, BLACK);
+			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 			blit_stringf(LEFT_LABEL_X, 216, "BATTERY CAP");
 			blit_stringf(RIGHT_LABEL_X, 216, "%-4d  mAh", getBatteryRemCapacity());
-			blit_set_color(WHITE, BLACK);
+			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 			blit_stringf(LEFT_LABEL_X, 232, "REMAINING  ");
 			blit_stringf(RIGHT_LABEL_X, 232, "%-4d  min", getBatteryLifeTime());
-			blit_set_color(WHITE, BLACK);
+			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 			blit_stringf(LEFT_LABEL_X, 248, "TEMPERATURE");
 			if (config.TEMP_IN_FAHRENHEIT) {
 				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Fah", getBatteryTempInFahrenheit());
 			} else {
 				blit_stringf(RIGHT_LABEL_X, 248, "%-5s Cel", getBatteryTempInCelsius());
 			}
-			blit_set_color(WHITE, BLACK);
+			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 			blit_stringf(LEFT_LABEL_X, 264, "CHARGING   ");
 			if (getBatteryStatus()) {
 				blit_stringf(RIGHT_LABEL_X, 264, "YES %5s", getBatteryPercentage());
@@ -283,25 +263,25 @@ int blit_thread(SceSize args, void *argp) {
 				blit_stringf(RIGHT_LABEL_X, 264, "NO  %5s", getBatteryPercentage());
 			}
 
-			blit_set_color(WHITE, BLACK);
+			blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 			blit_stringf(LEFT_LABEL_X, 296, "TITLEID    ");
 			blit_stringf(RIGHT_LABEL_X, 296, "%9s", titleid);
 
 			if (config.PSN_INFO) {
 				readIDDAT();
-				blit_set_color(WHITE, BLACK);
+				blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 				blit_stringf(LEFT_LABEL_X, 328, "USERNAME   ");
 				blit_stringf(RIGHT_LABEL_X, 328, "         ");
 				blit_stringf(RIGHT_LABEL_X, 328, "%s", oid);
-				blit_set_color(WHITE, BLACK);
+				blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 				blit_stringf(LEFT_LABEL_X, 344, "EMAIL      ");
 				blit_stringf(RIGHT_LABEL_X, 344, "         ");
 				blit_stringf(RIGHT_LABEL_X, 344, "%s", getString("/CONFIG/NP", "login_id"));
-				blit_set_color(WHITE, BLACK);
+				blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 				blit_stringf(LEFT_LABEL_X, 360, "PASSWORD   ");
 				blit_stringf(RIGHT_LABEL_X, 360, "         ");
 				blit_stringf(RIGHT_LABEL_X, 360, "%s", getString("/CONFIG/NP", "password"));
-				blit_set_color(WHITE, BLACK);
+				blit_set_color((config.THEME_FONTCOLOR), (config.THEME_BACKGROUND));
 				blit_stringf(LEFT_LABEL_X, 376, "REGION     ");
 				blit_stringf(RIGHT_LABEL_X, 376, "         ");
 				blit_stringf(RIGHT_LABEL_X, 376, "%s", getString("/CONFIG/NP", "country"));

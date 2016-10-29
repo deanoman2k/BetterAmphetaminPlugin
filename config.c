@@ -3,13 +3,9 @@
 void defaultConfig(CONFIG *config) {
     config->FREQ_ACCURATE = 0;
     config->SHOW_ADVANCED = 0;
-    config->AUTO_OC = 0;
-    config->AUTO_UC = 0;
-    config->AUTO_UC_EXT = 0;
     config->DEFAULT_PROFILE = 2;
 	config->TEMP_IN_FAHRENHEIT = 0;
 	config->PSN_INFO = 1;
-	config->PSTV_FEATURES = 0;
 	config->C1_RED = 0;
 	config->C1_GREEN = 0;
 	config->C1_BLUE = 255;
@@ -22,6 +18,10 @@ void defaultConfig(CONFIG *config) {
 	config->C4_RED = 255;
 	config->C4_GREEN = 255;
 	config->C4_BLUE = 255;
+	config->THEME_TITLE = 0x0033CC33;
+	config->THEME_SELECTED = 0x0033CC33;
+	config->THEME_BACKGROUND = 0x00000000;
+	config->THEME_FONTCOLOR = 0x00FFFFFF;
 }
 
 int loadConfig(CONFIG *config) {
@@ -49,18 +49,6 @@ int loadConfig(CONFIG *config) {
         }   
         if (strcmp(key, "show_advanced") == 0) {
             config->SHOW_ADVANCED = value;
-            continue;
-        }
-        if (strcmp(key, "auto_oc") == 0) {
-            config->AUTO_OC = value;
-            continue;
-        }
-        if (strcmp(key, "auto_uc") == 0) {
-            config->AUTO_UC = value;
-            continue;
-        }
-        if (strcmp(key, "auto_uc_ext") == 0) {
-            config->AUTO_UC_EXT = value;
             continue;
         }
         if (strcmp(key, "default_profile") == 0) {
@@ -125,6 +113,22 @@ int loadConfig(CONFIG *config) {
         }
 		if (strcmp(key, "c4_blue") == 0) {
             config->C4_BLUE = value;
+            continue;
+        }
+		if (strcmp(key, "theme_title") == 0) {
+            config->THEME_TITLE = value;
+            continue;
+        }
+		if (strcmp(key, "theme_selected") == 0) {
+            config->THEME_SELECTED = value;
+            continue;
+        }
+		if (strcmp(key, "theme_background") == 0) {
+            config->THEME_BACKGROUND = value;
+            continue;
+        }
+		if (strcmp(key, "theme_fontcolor") == 0) {
+            config->THEME_FONTCOLOR = value;
             continue;
         }
     }
