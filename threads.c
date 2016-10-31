@@ -1,4 +1,9 @@
 #include "threads.h"
+/* This contains the KERNEL PANIC PREVENTION SYSTEMs "blacklist",
+ * that means on certain games the game thread will not be frozen
+ */
+#define WHITE_LISTS 1
+const char* white_list[] = {"PCSG00622"};
 /*
  * Tricky way to freeze main thread, we set our plugin priority to 0 (max)
  * and we start two threads with 0 priority in order to get VITA scheduler
