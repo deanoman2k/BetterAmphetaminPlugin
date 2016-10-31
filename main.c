@@ -52,6 +52,8 @@ static int profile_max_performance[] = {444, 222, 222, 166};
 static uint32_t current_buttons = 0, pressed_buttons = 0;
 static struct CONFIG config;
 static char titleid[16] = "AMPHTAMIN";
+#define WHITE_LISTS 1
+const char* white_list[] = {"PCSG00622"}; // This prevents kernel panic, by not using a "bug" to pause game
 
 int holdButtons(SceCtrlData *pad, uint32_t buttons) {
 	if ((pad->buttons & buttons) == buttons) {
